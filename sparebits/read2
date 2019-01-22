@@ -1,0 +1,71 @@
+#!/bin/bash
+
+# Load text file lines into a bash array.
+
+#first temporarily set the filed separator to newline 
+OLD_IFS=$IFS
+IFS=$'\n'
+FILETOREADIN=( `cat "funnies" `)
+for X in "${FILETOREADIN[@]}"
+
+do
+#do something
+sleep 0
+#say $X
+
+done
+IFS=$OLD_IFS
+
+
+#print the element at address 5
+#	echo ${FILETOREADIN[5]}
+#Get Number of elements in the array
+	Y=${#FILETOREADIN[@]} 
+#Echo the number of elements we have
+#	echo $Y
+
+
+# this bit speaks a random line
+
+		RANGE=$Y
+
+# then we generate a random number to pick within the list
+# modulo (percent sign) gives us a limit, in this case 0 - 7
+		let "PICK = $RANDOM % $RANGE"
+
+		say ${FILETOREADIN[$PICK]}	
+
+
+
+echo ${FILETOREADIN[@]/$MYSILLYWORD/That is odd I thought of the same silly word as you did
+
+
+
+
+
+
+foob
+turd
+poopy doop
+bum
+goofy
+slooper
+smee
+warber
+wobblers
+wibbly
+pee
+wee
+botterswinkies
+pooodle
+widdling
+poo
+blib
+woo woo
+wootingley
+bob
+bumfluff
+nob
+titties
+bumpy lumps
+floob

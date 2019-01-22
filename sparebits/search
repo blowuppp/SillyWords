@@ -1,0 +1,24 @@
+#!/bin/sh
+
+read MYSILLYWORD
+
+searchString="bum"
+
+# if you single quote your input, you could do this
+# searchString=$1
+
+case $MYSILLYWORD in
+  # match exact string
+  "$searchString") echo yep, it matches exactly;;
+  
+  # match start of string
+  "$searchString"*) echo yep, it matches at the start ;;
+
+  # match end of string
+  *"$searchString") echo yep, it matches at the end ;;
+
+  # searchString can be anywhere in thisString
+  *"$searchString"*) echo yep, it matches in the middle somewhere ;;
+  
+  *) echo nope ;;
+esac

@@ -1,0 +1,31 @@
+#!/bin/sh
+
+
+
+BANNEDARRAY=( 'Three Word Element' 'TwoWord Element' OneWordElement boo)
+while :
+do
+
+
+read MYSILLYWORD
+
+#Declare array with multiple elements
+
+# get number of elements in the array
+#ELEMENTS=${#BANNEDARRAY[@]}
+
+for X in "${BANNEDARRAY[@]}"
+	do
+	if [[ $MYSILLYWORD == *$X* ]] 
+	then
+    	echo i found Bann word
+	else
+    	echo  $X "OK not found a bann"
+	fi
+	done 
+
+done
+
+
+
+

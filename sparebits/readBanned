@@ -1,0 +1,45 @@
+#!/bin/bash
+
+
+
+
+
+
+
+
+ALREADYSAID=bum
+
+filecontent=( `cat "wordlist" `)
+
+for X in "${filecontent[@]/$ALREADYSAID/thats odd, by coincidence I picked the same word as you}"
+do
+#print each line out
+echo $X
+done
+
+
+
+echo now print the element at address in square brackets
+echo ${filecontent[0]}
+
+#Get Number of elements in the array
+#Y=${#filecontent[@]} 
+
+
+
+
+
+
+#echo the number of files in array
+#echo $Y
+#change the array element 5
+#echo ${filecontent[5]/goofy/NewElement}
+#print the element at address 5
+#echo ${filecontent[5]}
+
+#
+#declare -a newarray=( ${filecontent[@]/goofy*/} )
+#echo here is the array newarray;
+#echo ${newarray[@]}
+#echo here is the old array;
+#echo ${filecontent[@]}

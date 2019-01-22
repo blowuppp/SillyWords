@@ -1,0 +1,224 @@
+#!/bin/bash
+
+#this gets the path to our scripts home directory
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+#change to the directory where script is stored
+cd $DIR
+echo `pwd`
+#look for  file called wordlist in which to keep the silly words and create it if its not found
+file=wordlist
+
+if [ ! -e "$file" ] ; then
+    touch "$file"
+fi
+
+if [ ! -w "$file" ] ; then
+    echo cannot write to $file
+    exit 1
+fi
+
+
+#this is foundfunction when we have spotted the input word in the wordlist. Functions don't have to be in any particular order
+	foundFunction ()
+	{
+	say I know the word $MYSILLYWORD, here is another silly word that I know.
+
+
+
+#temporarily set the field separator to newline so we can read in sentences
+	OLD_IFS=$IFS
+	IFS=$'\n'
+#and pull in all the learned words to an array named filetoreadin
+	FILETOREADIN=( `cat $DIR/"wordlist" `)
+	for X in "${FILETOREADIN[@]}"
+
+	do
+
+	sleep 0
+
+	done
+
+
+IFS=$OLD_IFS
+
+
+
+#Get Number of (silly word) elements in the array
+	Y=${#FILETOREADIN[@]} 
+
+
+# this bit speaks a random line from the wordlist we have been making
+	RANGE=$Y
+
+# then we generate a random number to pick within the list
+# modulo (percent sign) gives us a limit, in this case 0 - 7
+	let "PICK = $RANDOM % $RANGE"
+
+	#look for the input word and replace it in the array so that if picked he is logical
+	say ${FILETOREADIN[$PICK]/$MYSILLYWORD/thats odd, by coincidence from all the silly words I know I randomly picked the same word as you, $MYSILLYWORD}
+#close the function	
+
+getwordFunction
+	} 
+
+
+
+notFoundFunction ()
+{
+
+	say Thanks! I have not heard the word $MYSILLYWORD before
+	say you taught me the word $MYSILLYWORD , how many times shall i say it?
+
+# wait for a user input and assign it to variable TIMESTOSAY
+	read TIMESTOSAY
+
+#check that the input is a number
+if [[ $TIMESTOSAY =~ ^[0-9]+$ ]]; then
+
+    	say I will repeat $MYSILLYWORD , $TIMESTOSAY times.
+
+#set up loop to say MYSILLYWORD , TIMESTOSAY times
+	for (( Y = 1; Y <= $TIMESTOSAY; Y++ ))
+	do
+	say $MYSILLYWORD
+#print progress to screen the backslash allows us to use the apostrophe 
+	echo $Y $MYSILLYWORD \'s have been repeated
+	done
+say I did it! I said $MYSILLYWORD, $TIMESTOSAY times
+
+else
+    say sorry I need a number, you will have to try again ; getwordFunction
+fi
+
+
+
+funnyFunction
+}
+
+
+
+#Declare array with multiple elements consisting of banned words
+BANNEDARRAY=( fuk fuc cunny cunt kunt shit wank)
+
+
+funnyFunction ()
+	{
+#declare array of funny lines
+FUNNYARRAY=( 'OK, just one more' 'Oh, I think I found that funny' 'can we do another?' 'Hah hah, hah' 'You should be promoted' 'My Goodness what an enjoyable person you are' 'My My I am loving it' 'Are you ready for more' 'We are doing marvellously' 'This is a crazy roller coaster of enjoyment' 'Mildly amused , is one way of describing how I feel ' 'Right here, right now, give me more' 'More please' 'Daft as a brush' 'Silly as sausages' 'This is crazy man!' 'Absolutely stunning choice' 'That tickled my fancy' 'Huh, we are silly' 'I am excited now.' 'I think i need another silly word, please' 'Hoh Hoh hoh!' 'I am amused' 'i need more of your humorous input!' 'I am cracking up' 'Chuckling is good for me'
+'This mirth is overheating my internal processor' 'If i could only wet my pants' 'Never stop , you are terrific' 'What a splendid session we are having' 'I am beginning to understand your humour''The choice of verbal is knocking me for six''I am learning!''This time make it funnier!''There is more in your brain, I want it!''I beg you''More words if you dont mind''Hey buddy, you are masterful at this.''OK, lets have some more''That was Truly splendid''You make me laugh, keep it up''Im nearly ready to guffaw''L, O, L, thats internet slang''L, O, L, A, thats internet patter''i say old chap , would you mind giving me another?''I say , that was spiffing.''Oh hoh. Hoh hoe ho.''You are full of silly words, I want them''This is making me laugh, he he , he he. He .''Im on your wavelength old man''Hey buddy you should be on stage ''We could go all the way''Dude, you are terrific at this''Ah heh, This is better than working.''Hey dont stop, Im getting the hang of this now''Its a new form of education'
+'Lets think about the next one together,  I am ready!''OK then, all set for more''Keep it up , you are a chuckle''Tee hee hee''Another silly word would be nice''Im a aglow with mirth now''My sides nearly split''Laughing out loud is hard for me''Pure gem''Its time for another please''Can I ask you to delve into your mind for the next one''This is funny, would you agree?'
+)
+
+
+	sleep 1
+
+	for X in "${FUNNYARRAY[@]}"
+
+	do
+#do something
+	sleep 0
+#say $X
+
+	done
+
+
+
+#print the element at address 5
+#	echo ${FUNNYARRAY[5]}
+#Get Number of elements in the array
+	Y=${#FUNNYARRAY[@]} 
+#Echo the number of elements we have
+#	echo $Y
+
+
+# this bit speaks a random line
+
+	RANGE=$Y
+
+# then we generate a random number to pick within the list
+# modulo (percent sign) gives us a limit, in this case 0 - 7
+		let "PICK = $RANDOM % $RANGE"
+
+		say ${FUNNYARRAY[$PICK]}	
+		sleep 1
+
+getwordFunction
+	}
+
+
+notbannedFunction ()
+{
+		if grep -qw "$MYSILLYWORD" wordlist
+
+		then
+			foundFunction  
+       		 else
+			echo $MYSILLYWORD>> wordlist
+			notFoundFunction
+		fi
+}
+
+
+
+foundBannFunction ()
+{
+echo oops gotcha
+say Sorry , there is something I am not allowed to repeat there
+getwordFunction
+}
+
+
+
+getwordFunction()
+	{
+	
+	say please give me a silly word
+echo turning off writing to screen in case you type a rude word!
+#this copies the terminal type echo to screen setting
+stty_orig=`stty -g`
+#this turns echo to screen off (as if you are entering a password)
+stty -echo
+
+#take in the word
+	read MYSILLYWORD
+
+# put typing to screen back on
+stty $stty_orig
+echo screen output is back on
+
+#filter outwards longer than 20 letters
+if [[ $MYSILLYWORD =~ ^.{20} ]] ; then say actually thats a bit too long for me ; getwordFunction ; fi
+#catch any spaces if you take out the hash - this means we only collect single words
+#if [[ $MYSILLYWORD =~ " " ]] ; then say sorry , I only take single words ; getwordFunction ; fi
+
+echo checking for very rude words
+	for X in "${BANNEDARRAY[@]}"
+	do
+	if [[ $MYSILLYWORD == *$X* ]] 
+	then
+    	foundBannFunction
+	
+	fi
+	
+
+	done
+echo OK
+notbannedFunction	
+	}
+
+
+
+
+#change the voice
+alias say="say -v Alex"
+#this runs before the loop starts
+	say I collect silly words,
+# the while command puts the whole script into a loop, so we can keep playing.
+
+while :
+do
+	getwordFunction
+
+	funnyFunction
+done
+

@@ -1,0 +1,15 @@
+#!/bin/sh
+
+while :
+	do
+	read MYSILLYWORD
+
+	if grep -w "$MYSILLYWORD" wordlist
+
+		then
+			echo i know that one
+       		 else
+			#echo $MYSILLYWORD>> wordlist
+			echo ok i put it in the list
+		fi
+done

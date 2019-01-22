@@ -1,0 +1,222 @@
+#!/bin/bash
+
+#things to do
+
+
+#trap extra longer than 20 letter words and spaces
+
+#look for wordlist file and create it if not found
+
+file=wordlist
+
+if [ ! -e "$file" ] ; then
+    touch "$file"
+fi
+
+if [ ! -w "$file" ] ; then
+    echo cannot write to $file
+    exit 1
+fi
+
+
+
+	foundFunction ()
+	{
+	say I know the word $MYSILLYWORD, here is another silly word that I know.
+#pull in all the words to an array named filetoreadin
+
+
+#first temporarily set the filed separator to newline 
+	OLD_IFS=$IFS
+	IFS=$'\n'
+
+	FILETOREADIN=( `cat "./wordlist" `)
+	for X in "${FILETOREADIN[@]}"
+
+	do
+
+	sleep 0
+
+	done
+
+
+IFS=$OLD_IFS
+
+
+
+#Get Number of (silly word) elements in the array
+	Y=${#FILETOREADIN[@]} 
+
+
+# this bit speaks a random line from the wordlist we have been making
+	RANGE=$Y
+
+# then we generate a random number to pick within the list
+# modulo (percent sign) gives us a limit, in this case 0 - 7
+	let "PICK = $RANDOM % $RANGE"
+
+	#look for the input word and replace it in the array so that if picked he is logical
+	say ${FILETOREADIN[$PICK]/$MYSILLYWORD/thats odd, by coincidence from all the silly words I know I randomly picked the same word as you, $MYSILLYWORD}
+#close the function	
+
+getwordFunction
+	} 
+
+
+
+notFoundFunction ()
+{
+
+	say Thanks! I have not heard the word $MYSILLYWORD before
+	say you taught me the word $MYSILLYWORD , how many times shall i say it?
+
+# wait for a user input and assign it to variable TIMESTOSAY
+	read TIMESTOSAY
+
+#check that the input is a number
+if [[ $TIMESTOSAY =~ ^[0-9]+$ ]]; then
+
+    	say I will repeat $MYSILLYWORD , $TIMESTOSAY times.
+
+#set up loop to say MYSILLYWORD , TIMESTOSAY times
+	for (( Y = 1; Y <= $TIMESTOSAY; Y++ ))
+	do
+	say $MYSILLYWORD
+#print progress to screen the backslash allows us to use the apostrophe 
+	echo $Y $MYSILLYWORD \'s have been repeated
+	done
+say I did it! I said $MYSILLYWORD, $TIMESTOSAY times
+
+else
+    say sorry I need a number, you will have to try again ; getwordFunction
+fi
+
+
+
+funnyFunction
+}
+#Declare array with multiple elements consisting of banned words
+BANNEDARRAY=( fuk fuc cunt kunt shit wank)
+
+
+funnyFunction ()
+	{
+	sleep 1
+# Load text file lines into a bash array.
+
+#first temporarily set the filed separator to newline 
+	OLD_IFS=$IFS
+	IFS=$'\n'
+	FILETOREADIN=( `cat "funnies" `)
+	for X in "${FILETOREADIN[@]}"
+
+	do
+#do something
+	sleep 0
+#say $X
+
+	done
+	IFS=$OLD_IFS
+
+
+#print the element at address 5
+#	echo ${FILETOREADIN[5]}
+#Get Number of elements in the array
+	Y=${#FILETOREADIN[@]} 
+#Echo the number of elements we have
+#	echo $Y
+
+
+# this bit speaks a random line
+
+	RANGE=$Y
+
+# then we generate a random number to pick within the list
+# modulo (percent sign) gives us a limit, in this case 0 - 7
+		let "PICK = $RANDOM % $RANGE"
+
+		say ${FILETOREADIN[$PICK]}	
+		sleep 1
+
+getwordFunction
+	}
+
+
+notbannedFunction ()
+{
+		if grep -qw $MYSILLYWORD wordlist
+
+		then
+			foundFunction  
+       		 else
+			echo $MYSILLYWORD>> wordlist
+			notFoundFunction
+		fi
+}
+
+
+
+foundBannFunction ()
+{
+say Sorry , there is something I am not allowed to repeat there
+getwordFunction
+}
+
+
+
+getwordFunction()
+	{
+	
+	say please give me a silly word
+echo turning off writing to screen in case you type a rude word!
+#this copies the terminal type echo to screen setting
+stty_orig=`stty -g`
+#this turns echo to screen off (as if you are entering a password)
+stty -echo
+
+	read MYSILLYWORD
+
+#this turns typing to screen back on
+stty $stty_orig
+echo screen output is back on
+
+	for X in "${BANNEDARRAY[@]}"
+	do
+	if [[ $MYSILLYWORD == *$X* ]] 
+	then
+    	foundBannFunction
+	else
+    	echo  ok
+	fi
+	
+
+	done
+
+
+notbannedFunction	
+
+
+	}
+
+
+
+
+
+
+
+#change the voice
+alias say="say -v Alex"
+#this runs before the loop starts
+	say I collect silly words,
+# the while command puts the whole script into a loop, so we can keep playing.
+
+while :
+do
+
+	getwordFunction
+
+
+	funnyFunction
+
+done
+

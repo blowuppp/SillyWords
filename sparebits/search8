@@ -1,0 +1,13 @@
+#!/bin/sh
+
+while :
+do
+
+
+read MYINPUT
+
+if [[ $MYINPUT =~ ^.{5} ]] ; then echo match baby; fi
+
+
+
+done

@@ -1,0 +1,34 @@
+#!/bin/bash
+
+
+subOne ()
+{
+say this is sub one
+return
+} 
+
+
+subTwo ()
+{
+say this is sub two
+return
+} 
+
+while :
+do
+echo -n "Do you agree with this? [yes or no]: "
+read yno
+case $yno in
+
+        [yY] | [yY][Ee][Ss] )
+                subOne
+                ;;
+
+        [nN] | [n|N][O|o] )
+                subTwo;
+                
+                ;;
+        *) echo "Invalid input"
+            ;;
+esac
+done

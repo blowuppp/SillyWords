@@ -1,0 +1,37 @@
+#!/bin/sh
+
+read MYSILLYWORD
+
+#check the standard input as a pattern
+#against each line in banned list file
+
+bannedFunction ()
+{
+
+case $MYSILLYWORD in
+  # match exact string
+  "$X") echo yep, it matches exactly;;
+  
+  # match start of string
+  "$X"*) echo yep, it matches at the start ;;
+
+  # match end of string
+  *"$X") echo yep, it matches at the end ;;
+
+  # searchString can be anywhere in thisString
+  *"$X"*) echo yep, it matches in the middle somewhere ;;
+  
+  *) echo nope ;;
+esac
+}
+
+
+filecontent=( `cat "bannedwordlist" `)
+
+for X in "${filecontent[@]}"
+do
+
+bannedFunction
+
+done
+

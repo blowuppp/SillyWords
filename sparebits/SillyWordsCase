@@ -1,0 +1,198 @@
+#!/bin/bash
+
+#things to do
+
+#trap extra long words - that was too long for me etc
+#expression to find the banned words pattern in other words
+
+
+
+	foundFunction ()
+	{
+	say I know the word $MYSILLYWORD, here is another silly word that I know.
+#pull in all the words to an array named filetoreadin
+
+
+#first temporarily set the filed separator to newline 
+	OLD_IFS=$IFS
+	IFS=$'\n'
+
+	FILETOREADIN=( `cat "wordlist" `)
+	for X in "${FILETOREADIN[@]}"
+
+	do
+
+	sleep 0
+
+	done
+
+
+IFS=$OLD_IFS
+
+
+
+#Get Number of (silly word) elements in the array
+	Y=${#FILETOREADIN[@]} 
+
+
+# this bit speaks a random line from the wordlist we have been making
+	RANGE=$Y
+
+# then we generate a random number to pick within the list
+# modulo (percent sign) gives us a limit, in this case 0 - 7
+	let "PICK = $RANDOM % $RANGE"
+
+	#look for the input word and replace it in the array so that if picked he is logical
+	say ${FILETOREADIN[$PICK]/$MYSILLYWORD/thats odd, by coincidence from all the silly words I know I randomly picked the same word as you, $MYSILLYWORD}
+#close the function	
+
+getwordFunction
+	} 
+
+
+
+notFoundFunction ()
+{
+
+	say Thanks! I have not heard the word $MYSILLYWORD before
+	say you taught me the word $MYSILLYWORD , how many times shall i say it?
+
+# wait for a user input and assign it to variable TIMESTOSAY
+	read TIMESTOSAY
+
+	say I will repeat $MYSILLYWORD , $TIMESTOSAY times.
+
+#set up loop to say MYSILLYWORD , TIMESTOSAY times
+	for (( Y = 1; Y <= $TIMESTOSAY; Y++ ))
+	do
+	say $MYSILLYWORD
+	echo $Y $MYSILLYWORD
+	done
+say I did it! I said $MYSILLYWORD, $TIMESTOSAY times
+
+funnyFunction
+} 
+
+
+
+funnyFunction ()
+	{
+	sleep 1
+# Load text file lines into a bash array.
+
+#first temporarily set the filed separator to newline 
+	OLD_IFS=$IFS
+	IFS=$'\n'
+	FILETOREADIN=( `cat "funnies" `)
+	for X in "${FILETOREADIN[@]}"
+
+	do
+#do something
+	sleep 0
+#say $X
+
+	done
+	IFS=$OLD_IFS
+
+
+#print the element at address 5
+#	echo ${FILETOREADIN[5]}
+#Get Number of elements in the array
+	Y=${#FILETOREADIN[@]} 
+#Echo the number of elements we have
+#	echo $Y
+
+
+# this bit speaks a random line
+
+	RANGE=$Y
+
+# then we generate a random number to pick within the list
+# modulo (percent sign) gives us a limit, in this case 0 - 7
+		let "PICK = $RANDOM % $RANGE"
+
+		say ${FILETOREADIN[$PICK]}	
+		sleep 1
+
+getwordFunction
+	}
+
+
+notbannedFunction ()
+{
+		if grep -qw $MYSILLYWORD wordlist
+
+		then
+			foundFunction  
+       		 else
+			echo $MYSILLYWORD>> wordlist
+			notFoundFunction
+		fi
+}
+
+
+
+foundBannFunction ()
+{
+say Sorry , there is something I am not allowed to repeat there
+getwordFunction
+}
+
+
+
+getwordFunction()
+	{
+	
+	say please give me a silly word
+	read MYSILLYWORD
+
+	filecontent=( `cat "bannedwordlist" `)
+
+	for X in "${filecontent[@]}"
+	do
+
+	case $MYSILLYWORD in
+# match exact string
+  	"$X") foundBannFunction ;; 
+  
+# match start of string
+	"$X"*) foundBannFunction ;;
+
+# match end of string
+	*"$X") foundBannFunction  ;;
+
+# searchString can be anywhere in thisString
+	*"$X"*) foundBannFunction ;;  
+
+	*) echo OK
+	esac
+
+	done
+
+notbannedFunction	
+
+
+	}
+
+
+
+
+
+
+
+#change the voice
+alias say="say -v Alex"
+#this runs before the loop starts
+	say I collect silly words,
+# the while command puts the whole script into a loop, so we can keep playing.
+
+while :
+do
+
+	getwordFunction
+
+
+	funnyFunction
+
+done
+

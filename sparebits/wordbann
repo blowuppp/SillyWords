@@ -1,0 +1,85 @@
+	#!/bin/bash
+
+#things to do
+#to temporarily put the screen into homebrew colours seems hard
+#banned words list
+#if he has the word user inputs then he says a random word from the list.
+
+#here is the code
+#change the voice if you want
+alias say="say -v Alex"
+#this runs before the loop starts
+	say I collect silly words
+# the while command puts the whole script into a loop, so we can keep playing.
+	while :
+	do
+	
+	startFunction()
+	{
+	say please give me a silly word
+
+# wait for a user input and assign it to variable MYSILLYWORD
+	read MYSILLYWORD
+	}
+#excecute the startFunction to get us going
+	startFunction
+
+#search the banned wordlist for obscenities
+	if grep -q $MYSILLYWORD bannedwordlist
+	then
+	say sorry I am not allowed to repeat that kind of language
+	startFunction
+
+	
+#search the file wordlist for the silly word the user typed in
+	elseif grep -q $MYSILLYWORD wordlist
+
+#if the word is been found in the file wordlist we need to escape here and go back to the section where he asks for a word startFunction
+	then
+	say I already know the word $MYSILLYWORD
+	startFunction
+	
+
+	elseif
+#if the word was not found in the wordlist add it to the end of that file
+	echo $MYSILLYWORD>> wordlist
+	say Thanks! I have not heard the word $MYSILLYWORD before
+	
+	fi
+	say you taught me the word $MYSILLYWORD , how many times shall i say it?
+
+# wait for a user input and assign it to variable TIMESTOSAY
+	read TIMESTOSAY
+
+	say I will repeat $MYSILLYWORD , $TIMESTOSAY times.
+
+#set up loop to say MYSILLYWORD , TIMESTOSAY times
+	for (( Y = 1; Y <= $TIMESTOSAY; Y++ ))
+	do
+	say $MYSILLYWORD
+	echo $Y $MYSILLYWORD
+	done
+
+	say i did it! I said $MYSILLYWORD, $TIMESTOSAY times
+
+# this bit speaks a random line
+#so we can add more funny lines later we give a RANGE for number of possible FUNNIES comments
+	RANGE=8
+
+# then we generate a random number to pick within the list
+# modulo (percent sign) gives us a limit, in this case 0 - 7
+	let "PICK = $RANDOM % $RANGE"
+
+# initialise an array called FUNNIES with a RANGE of comments to choose from
+	FUNNIES[0]='OK, just one more'
+	FUNNIES[1]='Oh, I think I found that funny'
+	FUNNIES[2]='can we do another?'
+	FUNNIES[3]='Hah hah hah'
+	FUNNIES[4]='You should be ashamed'
+	FUNNIES[5]='err, this is fun'
+	FUNNIES[6]='My head is starting to hurt'
+	FUNNIES[7]='Leave me be, please'
+
+	say ${FUNNIES[$PICK]}
+	
+	done

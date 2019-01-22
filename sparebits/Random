@@ -1,0 +1,22 @@
+#!/bin/bash
+
+while :
+do
+  clear
+  echo -n 'Questions? '
+  read x
+  switch $x in
+    a)
+      echo a
+      ;;
+    b|c)
+      echo b or c
+      ;;
+    q)
+      break
+      ;;
+    *)
+      echo Invalid command \"$x\"
+      ;;
+  esac 
+done

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# reads from the $ips file and assigns to $MYARRAY
+
+echo "Enter the file name"
+read ips
+
+index=0
+
+while read line ; do
+	MYARRAY[$index]="$line"
+	index=$(($index+1))
+done < $ips
+
+echo "MYARRAY is: ${MYARRAY[*]}"
+echo "Total lines in the file: ${index}"
+
+
+
+
+

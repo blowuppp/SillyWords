@@ -1,0 +1,7 @@
+#!/bin/bash
+
+
+for v in `say -v ? | awk ‘{print $1}’`
+do
+say -v $v “Hi, my name is $v”
+done

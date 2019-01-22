@@ -1,0 +1,7 @@
+#!/bin/bash
+
+VOICEARRAY=(Agnes Kathy Princess Vicki Victoria Bruce Fred Junior Ralph Albert Bad News Bahh Bells Boing Bubbles Cellos Deranged Good News Hysterical Pipe Organ Trinoids Whisper Zarvox)
+
+
+VOICE=${VOICEARRAY[$RANDOM % ${#VOICEARRAY[@]} ]}
+say -v $VOICE "hi this is my voice"

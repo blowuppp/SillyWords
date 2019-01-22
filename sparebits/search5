@@ -1,0 +1,20 @@
+#!/bin/sh
+
+while :
+do
+
+
+read MYINPUT
+
+#Declare array with multiple elements
+BANNEDARRAY=( 'Three Word Element' 'TwoWord Element' OneWordElement boo)
+# get number of elements in the array
+ELEMENTS=${#BANNEDARRAY[@]}
+
+# echo each element in array 
+# for loop
+for (( i=0;i<$ELEMENTS;i++)); do
+    echo ${BANNEDARRAY[${i}]}
+done 
+
+done

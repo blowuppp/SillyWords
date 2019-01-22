@@ -1,0 +1,17 @@
+#!/bin/sh
+
+
+read MYSILLYWORD
+
+echo here is the output;
+if 
+grep -qie $MYSILLYWORD bannedwordlist
+
+	then
+echo it is NOT allowed
+
+else
+
+echo ok it IS allowed
+
+fi

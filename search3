@@ -1,0 +1,17 @@
+#!/bin/sh
+
+while :
+do
+
+
+read MYINPUT
+
+
+if [[ $MYINPUT == boo ]] 
+then
+    say  "#1 matched"
+else
+    echo  "#1 nope"
+fi
+done
+

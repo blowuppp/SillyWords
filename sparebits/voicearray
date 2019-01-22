@@ -1,0 +1,9 @@
+
+#number of resulting elements extracted randomly
+N=3
+VOICEARRAY=(Agnes Kathy Princess Vicki Victoria Bruce Fred Junior Ralph Albert Bad News Bahh Bells Boing Bubbles Cellos Deranged Good News Hysterical Pipe Organ Trinoids Whisper Zarvox)
+
+for index in `shuf --input-range=0-$(( ${#VOICEARRAY[*]} - 1 )) | head -${N}`
+do
+    echo ${ARRAY[$index]}
+done
