@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Silly Words</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="mouth-container" id="visual-container">
+            <div class="orb"></div>
+        </div>
+
+        <div class="interaction">
+            <form id="word-form">
+                <input type="text" id="word-input" placeholder="Type a silly word..." autocomplete="off">
+                <div class="controls">
+                    <button type="submit">Send</button>
+                    <button type="button" id="mic-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="response-container">
+            <p id="response-text"></p>
+            <p id="info-text">Press the mic or type a word!</p>
+        </div>
+
+        <div class="footer-action">
+            <button type="button" id="random-button">Silly Words</button>
+        </div>
+    </div>
+
+    <script src="/js/script.js"></script>
+</body>
+</html>
