@@ -87,6 +87,10 @@ exports.handler = async (event, context) => {
         return { statusCode: 400, body: JSON.stringify({ response: "I didn't catch that. Please try again." }) };
     }
 
+    if (/\s/.test(word)) {
+        return { statusCode: 400, body: JSON.stringify({ response: "Just one silly word at a time, please!" }) };
+    }
+
     if (word.length > 25) {
         return { statusCode: 400, body: JSON.stringify({ response: "That's a bit too long for me." }) };
     }

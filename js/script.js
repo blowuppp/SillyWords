@@ -43,6 +43,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- API Communication ---
     async function sendWord(word) {
         unlockSpeech(); // Unlock as early as possible on user gesture
+        if (/\s/.test(word.trim())) {
+            const refusal = "Just one silly word at a time, please!";
+            responseText.textContent = refusal;
+            speak(refusal);
+            infoText.textContent = 'Give me another word!';
+            return;
+        }
         animateWord(word);
         infoText.textContent = 'Thinking...';
         try {
